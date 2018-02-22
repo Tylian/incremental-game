@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h } from 'picodom';
 import Resource from './resource';
 
 import './tool.scss';
@@ -37,29 +37,19 @@ export default class Tool extends Resource {
 
     if(type == 'main') {
       if(!this.amount > 0) return;
-      return h('button', { 
-        class: { action: true },
-        style: { backgroundColor: this.color },
-        props: { disabled: !this.enabled },
-        on: {
-          click: () => {
-            if(this.disabled) return;
-            this.remaining = this.duration;
-          }
-        }
-      }, [
-        h('div', {
-          class: { 'action-progress': true },
-          style: { width: `${(1 - this.progress('action')) * 100}%` } 
-        }),
-        h('span', this.action)
-      ]);
+      return (<button class="action"
+        style={{ backgroundColor: this.color }}
+        disabled={!this.enabled}
+        onclick={() => { this.remaining = this.disabled ? -1 : this.duration; }}>
+        <div class="action-progress" style={{ width: `${(1 - this.progress('action')) * 100}%` } }></div>
+        <span>{this.action}</span>
+    </button>);
     } else if(type == 'tool') {
-      return h('div', { class: { tool: true }, style: { color: this.color } }, [
-        `${this.amount} ${this.name}`,
-        ...this.renderTasks(),
-        h('div', { class: { 'progress-bar': true }, style: { width: `${(this.progress('durability')) * 100}%`, backgroundColor: this.color } })
-      ]); 
+      return (<div class="tool" style={{ color: this.color }}>
+        {this.amount} {this.name}
+        {this.renderTasks()}
+        <div class="progress-bar" style={{ width: `${(this.progress('durability')) * 100}%`, backgroundColor: this.color }}></div>
+      </div>);
     } else if (type == 'resource') {
       return;
     }

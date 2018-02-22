@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h } from 'picodom';
 
 export default class Task {
   constructor() {
@@ -11,16 +11,9 @@ export default class Task {
 
   render() {
     if(!this.enabled) return;
-    return h('button', {
-      props: { 'disabled': !this.enabled },
-      class: { 'sub-action': true },
-      on: { click: () => { this.activate(); } }
-    }, h('i', {
-      class: {
-        'fa': true,
-        ['fa-' + this.icon]: true 
-      }
-    }));
+    return (<button onclick={() => { this.activate() }} class="sub-action">
+      <i class={`fa fa-${this.icon}`}></i>
+    </button>);
   }
 
   activate() {

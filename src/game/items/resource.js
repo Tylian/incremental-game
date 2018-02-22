@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h } from 'picodom';
 import Item from './item';
 
 import './resource.scss';
@@ -23,10 +23,10 @@ export default class Resource extends Item {
     if(!this.unlocked) return;
 
     if(type == 'resource') {
-      return h('div', { class: { resource: true }, style: { color: this.color } }, [
-        `${this.amount} ${this.name}`,
-        ...this.renderTasks()
-      ]); 
+      return (<div class="resource" style={{ color: this.color}}>
+        {this.amount} {this.name}
+        {this.renderTasks()}
+      </div>);
     }
 
     return super.render(type);

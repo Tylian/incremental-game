@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h } from 'picodom';
 import Resource from './resource';
 
 export default class Machine extends Resource {
@@ -16,11 +16,12 @@ export default class Machine extends Resource {
     if(!this.unlocked) return;
 
     if(type == 'machine') {
-      return h('div', { class: { machine: true }, style: { color: this.color } }, [
-        `${this.amount} ${this.name}`,
-        ...this.renderTasks(),
-        h('div', { class: { 'progress-bar': true }, style: { width: `${(this.progress('machine')) * 100}%`, backgroundColor: this.color } })
-      ]); 
+      return (<div class="machine" style={{ color: this.color}}>
+        {this.amount} {this.name}
+        {this.renderTasks()}
+        <div class="progress-bar" style={{ width: `${(this.progress('machine')) * 100}%`, backgroundColor: this.color }}></div>
+      </div>);
+
     } else if(type == 'resource') {
       return undefined;
     }

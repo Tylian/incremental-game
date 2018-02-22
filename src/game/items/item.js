@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h } from 'picodom';
 
 export default class Item {
   constructor(game, singular, plural = singular) {

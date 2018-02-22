@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h } from 'picodom';
 import * as items from './items';
 
 export default class Game {
@@ -32,7 +32,21 @@ export default class Game {
   }
 
   render() {
-    return h('div', { props: { id: "container" } }, [
+    return (<div id="container">
+      <section id="main">
+        {this.renderSection('main')}
+      </section>
+      <section id="sidebar">
+        <h3>Tools</h3>
+        {this.renderSection('tool')}
+        <h3>Machines</h3>
+        {this.renderSection('machine')}
+        <h3>Resources</h3>
+        {this.renderSection('resource')}
+      </section>
+    </div>);
+    
+    /*h('div', { props: { id: "container" } }, [
       h('section', { props: { id: 'main' } }, this.renderSection('main')),
       h('section', { props: { id: 'sidebar' } }, [
         h('h3', 'Tools'),
@@ -42,14 +56,14 @@ export default class Game {
         h('h3', 'Resources'),
         ...this.renderSection('resource')
       ])
-    ]);
+    ])*/;
   }
 
   renderSection(type) {
     let result = [];
     for(let item of this.items.values()) {
-      let vnode = item.render(type);
-      if(vnode != undefined) result.push(vnode);
+      let node = item.render(type);
+      if(node != undefined) result.push(node);
     }
 
     return result;
