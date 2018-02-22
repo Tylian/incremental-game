@@ -1,0 +1,24 @@
+.action {
+  padding: 0.8em;
+  border: 0;
+  color: white;
+  background: #666;
+  position: relative;
+  cursor: pointer;
+  margin: 2px;
+
+  .action-progress {
+    width: 100%;
+    background: black;
+    opacity: 0.5;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+  }
+}

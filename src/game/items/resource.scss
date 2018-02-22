@@ -1,0 +1,14 @@
+.resource, .tool, .machine {
+  vertical-align: middle;
+  .sub-action {
+    padding: 0;
+    border: 0;
+    background: 0;
+    cursor: pointer;
+    float: right;
+  }
+  .progress-bar {
+    height: 2px;
+    opacity: 0.8;
+  }
+}
